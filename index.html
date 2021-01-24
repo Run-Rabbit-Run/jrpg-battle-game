@@ -3,9 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Game</title>
 </head>
-<body>
+<body class="body">
+  <section class="field" id="field">
+    <div class="interface">
+      <div class="hero-stats" id="hero-stats">
+        <ul class="hero-stats__list">
+          <li class="hero-stats__item">Здоровье: <span class="hero-stats__hp" id="hero-hp"></span></li>
+          <li class="hero-stats__item">Магическая сила: <span class="hero-stats__mp">100</span></li>
+        </ul>
   
+        <div class="active-buttons">
+          <button>Обычные атаки</button>
+          <button>Усиленные атаки</button>
+        </div>
+
+        <div class="attack-skills">
+          <div class="attack-skills__icons" id="skills-icons">
+            
+          </div>
+
+          <div class="attack-skills__descriptions" id="skills-description">
+            
+          </div>
+        </div>
+        <div class="special-attack-skills"></div>
+      </div>
+  
+      
+      <div class="enemy-stats">
+        <ul class="enemy-stats__list">
+          <li class="enemy-stats__item">Здоровье: <span class="enemy-stats__hp" id="enemy-hp"></span></li>
+          <li class="enemy-stats__item">Магическая сила: <span class="enemy-stats__mp">100</span></li>
+        </ul>
+
+        <div class="attack-skills">
+          <div class="attack-skills__icons" id="enemy-skills-icons">
+            
+          </div>
+
+          <div class="attack-skills__descriptions" id="enemy-skills-description">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero" id="hero"></div>
+    <div class="hero-damage" id="hero-damage"></div>
+    <div class="enemy" id="enemy"></div>
+    <div class="enemy-damage" id="enemy-damage"></div>
+
+  </section>
+
+  <script src="js/script.js"></script>
 </body>
 </html>

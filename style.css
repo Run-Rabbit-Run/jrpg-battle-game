@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.field {
+  position: relative;
+  
+  width: 100vw;
+  min-height: 100vh;
+  margin: auto;
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  background-size: cover;
+
+  overflow: hidden;
+}
+
+.hero {
+  position: absolute;
+  top: 200px;
+  left: -150px;
+  z-index: 1;
+
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0;
+}
+
+.hero-damage {
+  position: absolute;
+  left: 230px;
+  top: 420px;
+  min-width: 50px;
+  height: 30px;
+  padding: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 3px solid black;
+  border-radius: 10px;
+
+  background-color: red;
+
+  opacity: 0;
+}
+
+.enemy {
+  position: absolute;
+  top: 285px;
+  right: -75px;
+  z-index: 1;
+
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0;
+}
+
+.enemy-damage {
+  position: absolute;
+  right: 230px;
+  top: 420px;
+  min-width: 50px;
+  height: 30px;
+  padding: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  border: 3px solid black;
+  border-radius: 10px;
+  
+  background-color: red;
+
+  opacity: 0;
+}
+
+@keyframes hit {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+.interface {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.hero-stats {
+  width: 240px;
+  padding: 10px 10px 15px 10px;
+  
+  background-color: rgba(121, 194, 216, 0.795);
+  border-right: 3px solid rgb(103, 255, 1);
+  border-bottom: 3px solid rgb(103, 255, 1);
+  border-bottom-right-radius: 15px;
+}
+
+.hero-stats__list {
+  list-style: none;
+}
+
+.hero-stats__item {
+  margin-bottom: 5px;  
+}
+
+.hero-stats__hp {
+  color: red;
+  text-shadow: 0 0 1px black;
+}
+
+.hero-stats__mp {
+  color: rgb(255, 174, 0);
+  text-shadow: 0 0 1px black;
+}
+
+.enemy-stats {
+  width: 240px;
+  padding: 10px 10px 15px 10px;
+  
+  background-color: rgba(121, 194, 216, 0.795);
+  border-left: 3px solid rgb(103, 255, 1);
+  border-bottom: 3px solid rgb(103, 255, 1);
+  border-bottom-left-radius: 15px;
+}
+
+.enemy-stats__list {
+  list-style: none;
+}
+
+.enemy-stats__item {
+  margin-bottom: 5px;
+}
+
+.enemy-stats__hp {
+  color: red;
+  text-shadow: 0 0 1px black;
+}
+
+.enemy-stats__mp {
+  color: rgb(255, 174, 0);
+  text-shadow: 0 0 1px black;
+}
+
+.attack-skills {
+  margin-top: 10px;
+}
+
+.attack-skills__descriptions {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.attack-skills__description {
+  display: none;
+}
+
+.attack-skills__icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.attack-skills__icon:nth-last-child(1) {
+  margin-right: 0;
+}
+
+.attack-skills__physical-damage {
+  font-weight: 600;
+  text-shadow: 0 0 1px black;
+  
+  color: rgb(255, 0, 0);
+}
+
+.attack-skills__magic-damage {
+  font-weight: 600;
+  text-shadow: 0 0 1px black;
+  
+  color: blue;
+}
+
+.attack-skills__name {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(139, 46, 58);
+}
+

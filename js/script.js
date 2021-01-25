@@ -518,9 +518,8 @@ class SkillEnemy {
       setTimeout(hero.animateHitBar.bind(hero), (enemy.animationTime * 1.5));
     } else {
       setTimeout(hero.animateHit.bind(hero), (enemy.animationTime * 1.5));
+      setTimeout(hero.startTurn.bind(hero), (enemy.animationTime * 3));
     }
-
-    setTimeout(hero.startTurn.bind(hero), (enemy.animationTime * 3));
   }
 }
 
@@ -531,10 +530,10 @@ class SkillEnemy {
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
 // создаём героя
-const hero = new Hero('George', 'images/heroes/martial-hero', 1600, 200, 4, 10, 100, 6, 4);
+const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 10, 100, 6, 4);
 
 // создаём врага
-const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(20, 50), getRandomInt(10, 30), 8);
+const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 90), getRandomInt(10, 40), 8);
 
 // создаём обычную атаку
 const attackSkill = new SkillHero('Sword Attack', `${hero.attack}`, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);

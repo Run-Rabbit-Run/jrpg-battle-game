@@ -349,6 +349,24 @@ class Enemy {
     }, (this.animationTime / this.numberOfAttack1Sprites));
   }
 
+  animateAttack2() {
+    const imgWidth = this.imgHeight * this.numberOfAttack1Sprites;
+    const animationTick = imgWidth / this.numberOfAttack1Sprites;
+    let position = -(imgWidth - animationTick);
+
+    enemyHTML.style.backgroundImage = `url(${this.imgPath}/Attack2.png)`;
+    enemyHTML.style.backgroundPosition = `${position}px`;
+    const attack = setInterval(() => {
+      enemyHTML.style.backgroundPosition = `${position}px`;
+      if (position < 0) {
+        position += animationTick;
+      } else {
+        position = 0;
+        clearInterval(attack);
+      }
+    }, (this.animationTime / this.numberOfAttack1Sprites));
+  }
+
   animateDeath() {
     this.stopAnimationIdle();
     
@@ -533,7 +551,7 @@ const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLo
 const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 10, 100, 6, 4);
 
 // создаём врага
-const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 90), getRandomInt(10, 40), 8);
+const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 90), getRandomInt(15, 35), 8);
 
 // создаём обычную атаку
 const attackSkill = new SkillHero('Sword Attack', `${hero.attack}`, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);
@@ -542,6 +560,8 @@ const powerAttackSkill = new SkillHero('Power Sword Attack', hero.attack * 2, `�
 
 // создаём атаку противника
 const enemyAttackSkill = new SkillEnemy('Basic Attack', `${enemy.attack}`, `Атака мечом. Наносит ${damageInHTML(enemy.attack, 'physical')} физического урона`, 'images/icons/enemy-skill-icons/icon-attack.png', 1);
+
+const enemyPowerAttackSkill = new SkillEnemy('Power Attack', `${enemy.attack * 1.5}`, `Усиленная атака мечом. Наносит ${damageInHTML(enemy.attack * 1.5, 'magic')} магического урона`, 'images/icons/enemy-skill-icons/icon-power-attack.png', 2);
 
 
 //-------------------- ВЫПОЛНЕНИЕ КОДА --------------------
@@ -557,6 +577,7 @@ window.onload = () => {
   powerAttackSkill.addSkillToInteface(); // добавляем второй скилл
 
   enemyAttackSkill.addSkillToInteface(); // добавляем скилл врагу
+  enemyPowerAttackSkill.addSkillToInteface();
 
   // enemy.skills[0].useSkill();
 };

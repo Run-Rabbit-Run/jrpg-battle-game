@@ -468,6 +468,7 @@ class SkillHero {
       if (enemy.health <= 0) {
         setTimeout(enemy.animateDeath.bind(enemy), (hero.animationTime * 1.5)); // анимация смерти
         setTimeout(enemy.animateHitBar.bind(enemy), (hero.animationTime * 1.5)); // количество нанесённого урона
+        setTimeout(() => alert('Поздравляем! Вы одолели могущественного скелета! Обновите страницу, чтобы совершить ещё один подвиг!'), (enemy.animationTime * 3.5));
       } else {
         setTimeout(enemy.animateHit.bind(enemy), (hero.animationTime * 1.5)); // анимация получения урона
         setTimeout(enemy.startTurn.bind(enemy), (hero.animationTime * 3));
@@ -534,6 +535,7 @@ class SkillEnemy {
     if (hero.health <= 0) {
       setTimeout(hero.animateDeath.bind(hero), (enemy.animationTime * 1.5));
       setTimeout(hero.animateHitBar.bind(hero), (enemy.animationTime * 1.5));
+      setTimeout(() => alert('Вас изничтожил жалкий скелет! Обновите страницу, чтобы опозориться вновь!'), (enemy.animationTime * 3.5));
     } else {
       setTimeout(hero.animateHit.bind(hero), (enemy.animationTime * 1.5));
       setTimeout(hero.startTurn.bind(hero), (enemy.animationTime * 3));
@@ -551,7 +553,7 @@ const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLo
 const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 10, 100, 6, 4);
 
 // создаём врага
-const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 90), getRandomInt(15, 35), 8);
+const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 80), getRandomInt(15, 30), 8);
 
 // создаём обычную атаку
 const attackSkill = new SkillHero('Sword Attack', `${hero.attack}`, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);

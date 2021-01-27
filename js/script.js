@@ -1,4 +1,6 @@
-//---------------------- ПЕРЕМЕННЫЕ ----------------------
+/* eslint-disable linebreak-style */
+
+// ---------------------- ПЕРЕМЕННЫЕ ----------------------
 const fieldHTML = document.getElementById('field');
 const heroHTML = document.getElementById('hero');
 const heroHpHTML = document.getElementById('hero-hp');
@@ -12,28 +14,23 @@ const enemyAttackSkillsIconsHTML = document.getElementById('enemy-skills-icons')
 const attackSkillsDescriptionsHTML = document.getElementById('skills-description');
 const enemyAttackSkillsDescriptionsHTML = document.getElementById('enemy-skills-description');
 
-
-//----------------------- ФУНКЦИИ -----------------------
+// ----------------------- ФУНКЦИИ -----------------------
 // Функция для рандомных чисел
 const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+  const minNum = Math.ceil(min);
+  const maxNum = Math.floor(max);
+  return Math.floor(Math.random() * (maxNum - minNum + 1)) + min; // Максимум и минимум включаются
 };
 
 // Функция для отображения урона в HTML формате
-const damageInHTML = (number, typeOfDamage) => {
-  return `<span class="attack-skills__${typeOfDamage}-damage">${number}</span>`;
-};
+const damageInHTML = (number, typeOfDamage) => `<span class="attack-skills__${typeOfDamage}-damage">${number}</span>`;
 
-
-//------------------ КОЛЛЕКЦИИ ОБЪЕКТОВ ------------------
+// ------------------ КОЛЛЕКЦИИ ОБЪЕКТОВ ------------------
 // коллекции для фона битв
 const battleLocation = ['field', 'forest', 'cave'];
 const battleTimes = ['day', 'night'];
 
-
-//----------------------- Классы -----------------------
+// ----------------------- Классы -----------------------
 // Создаём рандомный фон для битв
 class BackgroundBattle {
   constructor(location, timeOfDay, imgNumber) {
@@ -72,13 +69,13 @@ class Hero {
   }
 
   endTurn() {
-    heroStatsHTML.style.pointerEvents = `none`;
+    heroStatsHTML.style.pointerEvents = 'none';
   }
 
   startTurn() {
-    heroStatsHTML.style.pointerEvents = `all`;
+    heroStatsHTML.style.pointerEvents = 'all';
   }
-  
+
   animateIdle() {
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Idle.png)`;
 
@@ -103,7 +100,7 @@ class Hero {
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Run.png)`;
 
     let position = 0;
-    let translateTick = (100 / 2) / this.numberOfSprites;
+    const translateTick = (100 / 2) / this.numberOfSprites;
     let translateX = 0;
 
     const run = setInterval(() => {
@@ -123,7 +120,7 @@ class Hero {
     heroHTML.style.backgroundImage = `url(${this.imgPath}/RunBack.png)`;
 
     let position = 0;
-    let translateTick = (100 / 2) / this.numberOfSprites;
+    const translateTick = (100 / 2) / this.numberOfSprites;
     let translateX = (100 / 2) - translateTick;
 
     const runBack = setInterval(() => {
@@ -144,10 +141,10 @@ class Hero {
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Attack1.png)`;
 
     let position = 0;
-    
+
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
-      
+
       if (position < this.imgWidth - this.animationTick) {
         position += this.animationTick;
       } else {
@@ -161,10 +158,10 @@ class Hero {
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Attack2.png)`;
 
     let position = 0;
-    
+
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
-      
+
       if (position < this.imgWidth - this.animationTick) {
         position += this.animationTick;
       } else {
@@ -178,10 +175,10 @@ class Hero {
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Attack3.png)`;
 
     let position = 0;
-    
+
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
-      
+
       if (position < this.imgWidth - this.animationTick) {
         position += this.animationTick;
       } else {
@@ -197,7 +194,7 @@ class Hero {
     let position = 0;
 
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Death.png)`;
-    
+
     const death = setInterval(() => {
       heroHTML.style.backgroundPosition = `${-position}px`;
 
@@ -210,9 +207,9 @@ class Hero {
   }
 
   animateHitBar() {
-    heroHitBarHTML.style.animation = `hit 2.5s`;
-    setTimeout(function() {
-      heroHitBarHTML.style.animation = `none`;
+    heroHitBarHTML.style.animation = 'hit 2.5s';
+    setTimeout(() => {
+      heroHitBarHTML.style.animation = 'none';
     }, 2500);
   }
 
@@ -221,12 +218,12 @@ class Hero {
     this.animateHitBar();
 
     let position = 0;
-    
+
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Take-Hit.png)`;
-    
+
     const takeHit = setInterval(() => {
       heroHTML.style.backgroundPosition = `${-position}px`;
-      
+
       if (position < (this.imgHeight * this.takeHitSprites) - this.animationTick) {
         position += this.animationTick;
       } else {
@@ -260,10 +257,10 @@ class Enemy {
     enemyHTML.style.height = `${this.imgHeight}px`;
     enemyHpHTML.innerHTML = `${this.health}`;
   }
-  
+
   animateIdle() {
     enemyHTML.style.backgroundImage = `url(${this.imgPath}/Idle.png)`;
-    
+
     let position = 0;
 
     this.idle = setInterval(() => {
@@ -283,7 +280,7 @@ class Enemy {
 
   startTurn() {
     const randomSkillNumber = getRandomInt(0, (this.skills.length - 1));
-    
+
     this.skills[randomSkillNumber].useSkill();
   }
 
@@ -291,7 +288,7 @@ class Enemy {
     enemyHTML.style.backgroundImage = `url(${this.imgPath}/Run.png)`;
 
     let position = -(this.imgWidth - this.animationTick);
-    let translateTick = (100 / 2) / this.numberOfSprites;
+    const translateTick = (100 / 2) / this.numberOfSprites;
     let translateX = 0;
 
     const run = setInterval(() => {
@@ -310,7 +307,7 @@ class Enemy {
 
   animateRunBack() {
     let position = 0;
-    let translateTick = (100 / 2) / this.numberOfSprites;
+    const translateTick = (100 / 2) / this.numberOfSprites;
     let translateX = -((100 / 2) - translateTick);
 
     enemyHTML.style.backgroundImage = `url(${this.imgPath}/RunBack.png)`;
@@ -369,13 +366,13 @@ class Enemy {
 
   animateDeath() {
     this.stopAnimationIdle();
-    
+
     let position = this.imgWidth - this.animationTick;
-    
+
     const death = setInterval(() => {
       enemyHTML.style.backgroundImage = `url(${this.imgPath}/Death.png)`;
       enemyHTML.style.backgroundPosition = `${-position}px`;
-      
+
       if (position > 0) {
         position -= this.animationTick;
       } else {
@@ -385,22 +382,22 @@ class Enemy {
   }
 
   animateHitBar() {
-    enemyHitBarHTML.style.animation = `hit 2.5s`;
-    setTimeout(function() {
-      enemyHitBarHTML.style.animation = `none`;
+    enemyHitBarHTML.style.animation = 'hit 2.5s';
+    setTimeout(() => {
+      enemyHitBarHTML.style.animation = 'none';
     }, 2500);
   }
 
   animateHit() {
     this.stopAnimationIdle();
     this.animateHitBar();
-    
+
     let position = this.imgWidth - this.animationTick;
-    
+
     const takeHit = setInterval(() => {
       enemyHTML.style.backgroundImage = `url(${this.imgPath}/Take-Hit.png)`;
       enemyHTML.style.backgroundPosition = `${-position}px`;
-      
+
       if (position > 0) {
         position -= this.animationTick;
       } else {
@@ -432,9 +429,9 @@ class SkillHero {
     const idDescription = `${this.name.split(' ').join('')}-description`;
 
     attackSkillsIconsHTML.insertAdjacentHTML('beforeend', `<img class="attack-skills__icon" id="${idIcon}" src="${this.iconPath}">`);
-    
+
     attackSkillsDescriptionsHTML.insertAdjacentHTML('beforeend', `<p class="attack-skills__description" id="${idDescription}"><span class="attack-skills__name">${this.name}.</span> ${this.description}</p>`);
-    
+
     const icon = document.getElementById(idIcon);
     const description = document.getElementById(idDescription);
 
@@ -450,7 +447,7 @@ class SkillHero {
       hero.endTurn(); // блокируем интерфейс
       hero.stopAnimationIdle(); // стоп анимации покоя
       hero.animateRun(); // запуск анимации бега
-      switch (this.animationAttackNumber) {  // запуск одной из анимаций атаки
+      switch (this.animationAttackNumber) { // запуск одной из анимаций атаки
         case 1:
           setTimeout(hero.animateAttack1.bind(hero), hero.animationTime);
           break;
@@ -462,7 +459,7 @@ class SkillHero {
           break;
       }
       setTimeout(hero.animateRunBack.bind(hero), (hero.animationTime * 2)); // анимация бега назад
-      
+
       this.dealDamage();
 
       if (enemy.health <= 0) {
@@ -499,9 +496,9 @@ class SkillEnemy {
     const idDescription = `${this.name.split(' ').join('')}-description`;
 
     enemyAttackSkillsIconsHTML.insertAdjacentHTML('beforeend', `<img class="attack-skills__icon" id="${idIcon}" src="${this.iconPath}">`);
-    
+
     enemyAttackSkillsDescriptionsHTML.insertAdjacentHTML('beforeend', `<p class="attack-skills__description" id="${idDescription}"><span class="attack-skills__name">${this.name}.</span> ${this.description}</p>`);
-    
+
     const icon = document.getElementById(idIcon);
     const description = document.getElementById(idDescription);
 
@@ -529,7 +526,7 @@ class SkillEnemy {
         break;
     }
     setTimeout(enemy.animateRunBack.bind(enemy), (enemy.animationTime * 2));
-    
+
     this.dealDamage();
 
     if (hero.health <= 0) {
@@ -543,9 +540,7 @@ class SkillEnemy {
   }
 }
 
-
-
-//-------------------- СОЗДАЁМ ОБЪЕКТЫ --------------------
+// -------------------- СОЗДАЁМ ОБЪЕКТЫ --------------------
 // создаём объект местности, в которой всё происходит
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
@@ -565,8 +560,7 @@ const enemyAttackSkill = new SkillEnemy('Basic Attack', `${enemy.attack}`, `Ат
 
 const enemyPowerAttackSkill = new SkillEnemy('Power Attack', `${enemy.attack * 1.5}`, `Усиленная атака мечом. Наносит ${damageInHTML(enemy.attack * 1.5, 'magic')} магического урона`, 'images/icons/enemy-skill-icons/icon-power-attack.png', 2);
 
-
-//-------------------- ВЫПОЛНЕНИЕ КОДА --------------------
+// -------------------- ВЫПОЛНЕНИЕ КОДА --------------------
 window.onload = () => {
   background.installBackground(); // устанавливаем фон в CSS
 

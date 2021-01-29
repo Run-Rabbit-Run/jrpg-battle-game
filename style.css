@@ -171,17 +171,20 @@
   margin-right: 0;
 }
 
-.attack-skills__physical-damage {
+.attack-skills__damage {
   font-weight: 600;
   text-shadow: 0 0 1px black;
-  
+}
+
+.attack-skills__damage-physical {
   color: rgb(255, 0, 0);
 }
 
-.attack-skills__magic-damage {
-  font-weight: 600;
-  text-shadow: 0 0 1px black;
-  
+.attack-skills__damage-piercing {
+  color: rgb(51, 255, 0);
+}
+
+.attack-skills__damage-magic {
   color: blue;
 }
 

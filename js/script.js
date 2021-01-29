@@ -25,7 +25,7 @@ const getRandomInt = (min, max) => {
 };
 
 // Функция для отображения урона в HTML формате
-const damageInHTML = (number, typeOfDamage) => `<span class="attack-skills__${typeOfDamage}-damage">${number}</span>`;
+const damageInHTML = (number, typeOfDamage) => `<span class="attack-skills__damage attack-skills__damage-${typeOfDamage}">${number}</span>`;
 
 // ------------------ КОЛЛЕКЦИИ ОБЪЕКТОВ ------------------
 // коллекции для фона битв
@@ -416,16 +416,27 @@ class Enemy {
 
 // Создаём класс для активных умений героя (SkillHero)
 class SkillHero {
-  constructor(name, damage, description, iconPath, animationAttackNumber) {
+  constructor(name, type, damage, description, iconPath, animationAttackNumber) {
     this.name = name;
-    this.damage = damage;
+    this.type = type;
+    this.damage = Math.round(damage);
     this.description = description;
     this.iconPath = iconPath;
     this.animationAttackNumber = animationAttackNumber;
   }
 
   dealDamage() {
-    const damage = this.damage - enemy.armor;
+    let damage;
+
+    switch (this.type) {
+      case 'physical':
+        damage = this.damage - enemy.armor;
+        break;
+      case 'piercing':
+        damage = this.damage;
+        break;
+    }
+
     enemy.health = enemy.health - damage;
     enemyHpHTML.innerHTML = enemy.health;
     enemyHitBarHTML.innerHTML = `-${damage}`;
@@ -482,16 +493,27 @@ class SkillHero {
 }
 
 class SkillEnemy {
-  constructor(name, damage, description, iconPath, animationAttackNumber) {
+  constructor(name, type, damage, description, iconPath, animationAttackNumber) {
     this.name = name;
-    this.damage = damage;
+    this.type = type;
+    this.damage = Math.round(damage);
     this.description = description;
     this.iconPath = iconPath;
     this.animationAttackNumber = animationAttackNumber;
   }
 
   dealDamage() {
-    const damage = this.damage - hero.armor;
+    let damage;
+
+    switch (this.type) {
+      case 'physical':
+        damage = this.damage - hero.armor;
+        break;
+      case 'piercing':
+        damage = this.damage;
+        break;
+    }
+
     hero.health = hero.health - damage;
     heroHpHTML.innerHTML = hero.health;
     heroHitBarHTML.innerHTML = `-${damage}`;
@@ -553,20 +575,20 @@ class SkillEnemy {
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
 // создаём героя
-const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, getRandomInt(10, 20), getRandomInt(60, 100), 6, 4, getRandomInt(1, 3));
+const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, getRandomInt(14, 21), getRandomInt(43, 53), 6, 4, getRandomInt(1, 6));
 
 // создаём врага
-const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 80), getRandomInt(15, 30), 8, getRandomInt(0, 5));
+const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 50), getRandomInt(13, 20), 8, getRandomInt(1, 6));
 
 // создаём обычную атаку
-const attackSkill = new SkillHero('Sword Attack', `${hero.attack}`, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);
+const attackSkill = new SkillHero('Sword Attack', 'physical', hero.attack, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);
 
-const powerAttackSkill = new SkillHero('Power Sword Attack', hero.attack * 2, `Усиленная атака мечом. Наносит ${damageInHTML(hero.attack * 2, 'magic')} магического урона`, 'images/icons/hero-skill-icons/icon-power-attack.png', 2);
+const powerAttackSkill = new SkillHero('Piercing Attack', 'piercing', hero.attack * 0.8, `Атака, игнорирующая броню противника. Наносит ${damageInHTML(Math.round(hero.attack * 0.8), 'piercing')} проникающего урона`, 'images/icons/hero-skill-icons/icon-power-attack.png', 2);
 
 // создаём атаку противника
-const enemyAttackSkill = new SkillEnemy('Basic Attack', `${enemy.attack}`, `Атака мечом. Наносит ${damageInHTML(enemy.attack, 'physical')} физического урона`, 'images/icons/enemy-skill-icons/icon-attack.png', 1);
+const enemyAttackSkill = new SkillEnemy('Basic Attack', 'physical', enemy.attack, `Атака мечом. Наносит ${damageInHTML(enemy.attack, 'physical')} физического урона`, 'images/icons/enemy-skill-icons/icon-attack.png', 1);
 
-const enemyPowerAttackSkill = new SkillEnemy('Power Attack', `${enemy.attack * 1.5}`, `Усиленная атака мечом. Наносит ${damageInHTML(enemy.attack * 1.5, 'magic')} магического урона`, 'images/icons/enemy-skill-icons/icon-power-attack.png', 2);
+const enemyPowerAttackSkill = new SkillEnemy('Deadly Attack', 'piercing', enemy.attack * 0.8, `Атака, игнорирующая броню противника. Наносит ${damageInHTML(Math.round(enemy.attack * 0.8), 'piercing')} проникающего урона`, 'images/icons/enemy-skill-icons/icon-power-attack.png', 2);
 
 // -------------------- ВЫПОЛНЕНИЕ КОДА --------------------
 window.onload = () => {

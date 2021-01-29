@@ -107,60 +107,46 @@
   align-items: flex-start;
 }
 
-.hero-stats {
+.stats {
   width: 240px;
   padding: 10px 10px 15px 10px;
   
   background-color: rgba(121, 194, 216, 0.795);
-  border-right: 3px solid rgb(103, 255, 1);
   border-bottom: 3px solid rgb(103, 255, 1);
-  border-bottom-right-radius: 15px;
 }
 
-.hero-stats__list {
+.stats--border-right {
+  border-bottom-right-radius: 15px;
+  border-right: 3px solid rgb(103, 255, 1);
+}
+
+.stats--border-left {
+  border-bottom-left-radius: 15px;
+  border-left: 3px solid rgb(103, 255, 1);
+}
+
+.stats__list {
   list-style: none;
 }
 
-.hero-stats__item {
+.stats__item {
   margin-bottom: 5px;  
 }
 
-.hero-stats__hp {
+.stats__value {
+  text-shadow: 0 0 1px black;
+}
+
+.stats__value--red {
   color: red;
-  text-shadow: 0 0 1px black;
 }
 
-.hero-stats__mp {
+.stats__value--yellow {
   color: rgb(255, 174, 0);
-  text-shadow: 0 0 1px black;
 }
 
-.enemy-stats {
-  width: 240px;
-  padding: 10px 10px 15px 10px;
-  
-  background-color: rgba(121, 194, 216, 0.795);
-  border-left: 3px solid rgb(103, 255, 1);
-  border-bottom: 3px solid rgb(103, 255, 1);
-  border-bottom-left-radius: 15px;
-}
-
-.enemy-stats__list {
-  list-style: none;
-}
-
-.enemy-stats__item {
-  margin-bottom: 5px;
-}
-
-.enemy-stats__hp {
-  color: red;
-  text-shadow: 0 0 1px black;
-}
-
-.enemy-stats__mp {
-  color: rgb(255, 174, 0);
-  text-shadow: 0 0 1px black;
+.stats__value--silver {
+  color: rgb(201, 192, 187);
 }
 
 .attack-skills {

@@ -9,10 +9,11 @@
 <body class="body">
   <section class="field" id="field">
     <div class="interface">
-      <div class="hero-stats" id="hero-stats">
-        <ul class="hero-stats__list">
-          <li class="hero-stats__item">Здоровье: <span class="hero-stats__hp" id="hero-hp"></span></li>
-          <li class="hero-stats__item">Магическая сила: <span class="hero-stats__mp">100</span></li>
+      <div class="stats stats--border-right" id="hero-stats">
+        <ul class="stats__list">
+          <li class="stats__item">Здоровье: <span class="stats__value stats__value--red" id="hero-hp"></span></li>
+          <li class="stats__item">Магическая сила: <span class="stats__value stats__value--yellow">100</span></li>
+          <li class="stats__item">Броня: <span class="stats__value stats__value--silver">1</span></li>
         </ul>
   
         <div class="active-buttons">
@@ -29,10 +30,11 @@
       </div>
   
       
-      <div class="enemy-stats">
-        <ul class="enemy-stats__list">
-          <li class="enemy-stats__item">Здоровье: <span class="enemy-stats__hp" id="enemy-hp"></span></li>
-          <li class="enemy-stats__item">Магическая сила: <span class="enemy-stats__mp">100</span></li>
+      <div class="stats stats--border-left">
+        <ul class="stats__list">
+          <li class="stats__item">Здоровье: <span class="stats__value stats__value--red" id="enemy-hp"></span></li>
+          <li class="stats__item">Магическая сила: <span class="stats__value stats__value--yellow">100</span></li>
+          <li class="stats__item">Броня: <span class="stats__value stats__value--silver">1</span></li>
         </ul>
 
         <div class="attack-skills">

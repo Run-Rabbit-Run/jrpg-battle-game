@@ -553,10 +553,10 @@ class SkillEnemy {
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
 // создаём героя
-const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 10, 100, 6, 4);
+const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, getRandomInt(10, 20), getRandomInt(60, 100), 6, 4, getRandomInt(1, 3));
 
 // создаём врага
-const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 80), getRandomInt(15, 30), 8);
+const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 80), getRandomInt(15, 30), 8, getRandomInt(0, 5));
 
 // создаём обычную атаку
 const attackSkill = new SkillHero('Sword Attack', `${hero.attack}`, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);

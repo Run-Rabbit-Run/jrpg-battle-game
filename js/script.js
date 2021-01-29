@@ -4,10 +4,12 @@
 const fieldHTML = document.getElementById('field');
 const heroHTML = document.getElementById('hero');
 const heroHpHTML = document.getElementById('hero-hp');
+const heroArmorHTML = document.getElementById('hero-armor');
 const heroHitBarHTML = document.getElementById('hero-damage');
 const heroStatsHTML = document.getElementById('hero-stats');
 const enemyHTML = document.getElementById('enemy');
 const enemyHpHTML = document.getElementById('enemy-hp');
+const enemyArmorHTML = document.getElementById('enemy-armor');
 const enemyHitBarHTML = document.getElementById('enemy-damage');
 const attackSkillsIconsHTML = document.getElementById('skills-icons');
 const enemyAttackSkillsIconsHTML = document.getElementById('enemy-skills-icons');
@@ -47,7 +49,7 @@ class BackgroundBattle {
 
 // Cоздаём героя
 class Hero {
-  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, baseAttack, health, deathSprites, takeHitSprites) {
+  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, baseAttack, health, deathSprites, takeHitSprites, armor = 1) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
@@ -60,12 +62,14 @@ class Hero {
     this.animationInterval = 800 / (imgWidth / imgHeight);
     this.deathSprites = deathSprites;
     this.takeHitSprites = takeHitSprites;
+    this.armor = armor;
   }
 
   drawHero() {
     heroHTML.style.width = `${this.imgHeight}px`;
     heroHTML.style.height = `${this.imgHeight}px`;
     heroHpHTML.innerHTML = `${this.health}`;
+    heroArmorHTML.innerHTML = `${this.armor}`;
   }
 
   endTurn() {
@@ -236,7 +240,7 @@ class Hero {
 
 // Создаём класс врага
 class Enemy {
-  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, health, baseAttack, attack1Sprites) {
+  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, health, baseAttack, attack1Sprites, armor = 1) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
@@ -250,12 +254,14 @@ class Enemy {
     this.animationInterval = 800 / (imgWidth / imgHeight);
     this.scaleMultiplier = scaleMultiplier;
     this.skills = [];
+    this.armor = armor;
   }
 
   drawEnemy() {
     enemyHTML.style.width = `${this.imgHeight}px`;
     enemyHTML.style.height = `${this.imgHeight}px`;
     enemyHpHTML.innerHTML = `${this.health}`;
+    enemyArmorHTML.innerHTML = `${this.armor}`;
   }
 
   animateIdle() {
@@ -419,9 +425,10 @@ class SkillHero {
   }
 
   dealDamage() {
-    enemy.health -= this.damage;
+    const damage = this.damage - enemy.armor;
+    enemy.health = enemy.health - damage;
     enemyHpHTML.innerHTML = enemy.health;
-    enemyHitBarHTML.innerHTML = `-${this.damage}`;
+    enemyHitBarHTML.innerHTML = `-${damage}`;
   }
 
   addSkillToInteface() {
@@ -484,9 +491,10 @@ class SkillEnemy {
   }
 
   dealDamage() {
-    hero.health -= this.damage;
+    const damage = this.damage - hero.armor;
+    hero.health = hero.health - damage;
     heroHpHTML.innerHTML = hero.health;
-    heroHitBarHTML.innerHTML = `-${this.damage}`;
+    heroHitBarHTML.innerHTML = `-${damage}`;
   }
 
   addSkillToInteface() {

@@ -49,7 +49,7 @@ class BackgroundBattle {
 
 // Cоздаём героя
 class Hero {
-  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, deathSprites, takeHitSprites, attackSprites, health = 100, baseAttack = 10, armor = 1) {
+  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, deathSprites, takeHitSprites, attack1Sprites, health = 100, baseAttack = 10, armor = 1) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
@@ -62,7 +62,7 @@ class Hero {
     this.animationInterval = 800 / (imgWidth / imgHeight);
     this.deathSprites = deathSprites;
     this.takeHitSprites = takeHitSprites;
-    this.attackSprites = attackSprites;
+    this.attack1Sprites = attack1Sprites;
     this.armor = armor;
   }
 
@@ -150,13 +150,13 @@ class Hero {
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
 
-      if (position < (this.imgHeight * this.attackSprites) - this.animationTick) {
+      if (position < (this.imgHeight * this.attack1Sprites) - this.animationTick) {
         position += this.animationTick;
       } else {
         position = 0;
         clearInterval(attack);
       }
-    }, (this.animationTime / this.attackSprites));
+    }, (this.animationTime / this.attack1Sprites));
   }
 
   animateAttack2() {
@@ -167,13 +167,13 @@ class Hero {
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
 
-      if (position < (this.imgHeight * this.attackSprites) - this.animationTick) {
+      if (position < (this.imgHeight * this.attack1Sprites) - this.animationTick) {
         position += this.animationTick;
       } else {
         position = 0;
         clearInterval(attack);
       }
-    }, (this.animationTime / this.attackSprites));
+    }, (this.animationTime / this.attack1Sprites));
   }
 
   animateAttack3() {
@@ -184,13 +184,13 @@ class Hero {
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
 
-      if (position < (this.imgHeight * this.attackSprites) - this.animationTick) {
+      if (position < (this.imgHeight * this.attack1Sprites) - this.animationTick) {
         position += this.animationTick;
       } else {
         position = 0;
         clearInterval(attack);
       }
-    }, (this.animationTime / this.attackSprites));
+    }, (this.animationTime / this.attack1Sprites));
   }
 
   animateDeath() {
@@ -241,7 +241,7 @@ class Hero {
 
 // Создаём класс врага
 class Enemy {
-  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, health, baseAttack, attack1Sprites, armor = 1) {
+  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, attack1Sprites, runSprites, health, baseAttack, armor = 1) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
@@ -254,6 +254,7 @@ class Enemy {
     this.animationTick = imgHeight * scaleMultiplier;
     this.animationInterval = 800 / (imgWidth / imgHeight);
     this.scaleMultiplier = scaleMultiplier;
+    this.runSprites = runSprites;
     this.skills = [];
     this.armor = armor;
   }
@@ -292,29 +293,33 @@ class Enemy {
   }
 
   animateRun() {
-    enemyHTML.style.backgroundImage = `url(${this.imgPath}/Run.png)`;
-
-    let position = -(this.imgWidth - this.animationTick);
-    const translateTick = (100 / 2) / this.numberOfSprites;
+    const imgWidth = this.imgHeight * this.runSprites;
+    const animationTick = imgWidth / this.runSprites;
+    const translateTick = (100 / 2) / this.runSprites;
+    let position = -(imgWidth - animationTick);
     let translateX = 0;
 
+    enemyHTML.style.backgroundImage = `url(${this.imgPath}/Run.png)`;
+
     const run = setInterval(() => {
+      enemyHTML.style.transform = `translateX(${-(position / this.runSprites)}px)`;
       enemyHTML.style.backgroundPosition = `${position}px`;
-      enemyHTML.style.transform = `translateX(${-(position / this.numberOfSprites)}px)`;
       enemyHTML.style.transform = `translateX(-${translateX}vw)`;
       if (position < 0) {
-        position += this.animationTick;
+        position += animationTick;
         translateX += translateTick;
       } else {
         position = 0;
         clearInterval(run);
       }
-    }, this.animationInterval);
+    }, (this.animationTime / this.runSprites));
   }
 
   animateRunBack() {
+    const imgWidth = this.imgHeight * this.runSprites;
+    const animationTick = imgWidth / this.runSprites;
+    const translateTick = (100 / 2) / this.runSprites;
     let position = 0;
-    const translateTick = (100 / 2) / this.numberOfSprites;
     let translateX = -((100 / 2) - translateTick);
 
     enemyHTML.style.backgroundImage = `url(${this.imgPath}/RunBack.png)`;
@@ -322,17 +327,17 @@ class Enemy {
     enemyHTML.style.transform = `translateX(${translateX}vw)`;
 
     const runBack = setInterval(() => {
-      enemyHTML.style.backgroundPosition = `-${position}px`;
       enemyHTML.style.transform = `translateX(${translateX}vw)`;
-      if (position < this.imgWidth - this.animationTick) {
-        position += this.animationTick;
+      enemyHTML.style.backgroundPosition = `-${position}px`;
+      if (position < imgWidth - animationTick) {
+        position += animationTick;
         translateX += translateTick;
       } else {
         position = 0;
         clearInterval(runBack);
         this.animateIdle();
       }
-    }, this.animationInterval);
+    }, (this.animationTime / this.runSprites));
   }
 
   animateAttack1() {
@@ -359,6 +364,24 @@ class Enemy {
     let position = -(imgWidth - animationTick);
 
     enemyHTML.style.backgroundImage = `url(${this.imgPath}/Attack2.png)`;
+    enemyHTML.style.backgroundPosition = `${position}px`;
+    const attack = setInterval(() => {
+      enemyHTML.style.backgroundPosition = `${position}px`;
+      if (position < 0) {
+        position += animationTick;
+      } else {
+        position = 0;
+        clearInterval(attack);
+      }
+    }, (this.animationTime / this.numberOfAttack1Sprites));
+  }
+
+  animateAttack3() {
+    const imgWidth = this.imgHeight * this.numberOfAttack1Sprites;
+    const animationTick = imgWidth / this.numberOfAttack1Sprites;
+    let position = -(imgWidth - animationTick);
+
+    enemyHTML.style.backgroundImage = `url(${this.imgPath}/Attack3.png)`;
     enemyHTML.style.backgroundPosition = `${position}px`;
     const attack = setInterval(() => {
       enemyHTML.style.backgroundPosition = `${position}px`;
@@ -484,7 +507,7 @@ class SkillHero {
       if (enemy.health <= 0) {
         setTimeout(enemy.animateDeath.bind(enemy), (hero.animationTime * 1.5)); // анимация смерти
         setTimeout(enemy.animateHitBar.bind(enemy), (hero.animationTime * 1.5)); // количество нанесённого урона
-        setTimeout(() => alert('Поздравляем! Вы одолели могущественного скелета! Обновите страницу, чтобы совершить ещё один подвиг!'), (enemy.animationTime * 3.5));
+        setTimeout(() => alert(`Поздравляем! Могущественный ${enemy.name} повержен! Обновите страницу, чтобы совершить ещё один подвиг!`), (enemy.animationTime * 3.5));
       } else {
         setTimeout(enemy.animateHit.bind(enemy), (hero.animationTime * 1.5)); // анимация получения урона
         setTimeout(enemy.startTurn.bind(enemy), (hero.animationTime * 3));
@@ -563,7 +586,7 @@ class SkillEnemy {
     if (hero.health <= 0) {
       setTimeout(hero.animateDeath.bind(hero), (enemy.animationTime * 1.5));
       setTimeout(hero.animateHitBar.bind(hero), (enemy.animationTime * 1.5));
-      setTimeout(() => alert('Вас изничтожил жалкий скелет! Обновите страницу, чтобы опозориться вновь!'), (enemy.animationTime * 3.5));
+      setTimeout(() => alert(`Вас изничтожил жалкий ${enemy.name}! Обновите страницу, чтобы опозориться вновь!`), (enemy.animationTime * 3.5));
     } else {
       setTimeout(hero.animateHit.bind(hero), (enemy.animationTime * 1.5));
       setTimeout(hero.startTurn.bind(hero), (enemy.animationTime * 3));
@@ -575,26 +598,34 @@ class SkillEnemy {
 // создаём объект местности, в которой всё происходит
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
-const chosenHero = prompt('Введите номер героя которого хотите выбрать: 1. Самурай 2. Воин', 1);
-
 // создаём героя
-const hero1 = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
-
-const hero2 = new Hero('Destroyer666', 'images/heroes/medieval-warrior', 1200, 150, 5, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
-
+const chosenHero = prompt('Введите номер героя которого хотите выбрать: 1. Воин 2. Самурай', 1);
 let hero;
-// console.log(chosenHero)
 
 if (Number(chosenHero) === 2) {
-  hero = hero2;
-  console.log(hero)
+  hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
 } else {
-  hero = hero1;
-  console.log(hero)
+  hero = new Hero('Destroyer666', 'images/heroes/medieval-warrior', 1200, 150, 5, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
 }
 
 // создаём врага
-const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 50), getRandomInt(13, 20), 8, getRandomInt(1, 6));
+const chosenEnemy = getRandomInt(1, 4);
+let enemy;
+
+switch (chosenEnemy) {
+  case 1:
+    enemy = new Enemy('Скелет', 'images/enemies/skeleton', 600, 150, 4, 8, 4, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    break;
+  case 2:
+    enemy = new Enemy('Гоблин', 'images/enemies/goblin', 600, 150, 4, 8, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    break;
+  case 3:
+    enemy = new Enemy('Гриб', 'images/enemies/mushroom', 600, 150, 4, 8, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    break;
+  case 4:
+    enemy = new Enemy('Глаз', 'images/enemies/bat', 1200, 150, 4, 8, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    break;
+}
 
 // создаём обычную атаку
 const attackSkill = new SkillHero('Sword Attack', 'physical', hero.attack, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);

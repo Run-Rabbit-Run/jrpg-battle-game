@@ -49,7 +49,7 @@ class BackgroundBattle {
 
 // Cоздаём героя
 class Hero {
-  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, baseAttack, health, deathSprites, takeHitSprites, armor = 1) {
+  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, deathSprites, takeHitSprites, attackSprites, health = 100, baseAttack = 10, armor = 1) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
@@ -62,6 +62,7 @@ class Hero {
     this.animationInterval = 800 / (imgWidth / imgHeight);
     this.deathSprites = deathSprites;
     this.takeHitSprites = takeHitSprites;
+    this.attackSprites = attackSprites;
     this.armor = armor;
   }
 
@@ -149,13 +150,13 @@ class Hero {
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
 
-      if (position < this.imgWidth - this.animationTick) {
+      if (position < (this.imgHeight * this.attackSprites) - this.animationTick) {
         position += this.animationTick;
       } else {
         position = 0;
         clearInterval(attack);
       }
-    }, this.animationInterval);
+    }, (this.animationTime / this.attackSprites));
   }
 
   animateAttack2() {
@@ -166,13 +167,13 @@ class Hero {
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
 
-      if (position < this.imgWidth - this.animationTick) {
+      if (position < (this.imgHeight * this.attackSprites) - this.animationTick) {
         position += this.animationTick;
       } else {
         position = 0;
         clearInterval(attack);
       }
-    }, this.animationInterval);
+    }, (this.animationTime / this.attackSprites));
   }
 
   animateAttack3() {
@@ -183,13 +184,13 @@ class Hero {
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}px`;
 
-      if (position < this.imgWidth - this.animationTick) {
+      if (position < (this.imgHeight * this.attackSprites) - this.animationTick) {
         position += this.animationTick;
       } else {
         position = 0;
         clearInterval(attack);
       }
-    }, this.animationInterval);
+    }, (this.animationTime / this.attackSprites));
   }
 
   animateDeath() {
@@ -574,8 +575,23 @@ class SkillEnemy {
 // создаём объект местности, в которой всё происходит
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
+const chosenHero = prompt('Введите номер героя которого хотите выбрать: 1. Самурай 2. Воин', 1);
+
 // создаём героя
-const hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, getRandomInt(14, 21), getRandomInt(43, 53), 6, 4, getRandomInt(1, 6));
+const hero1 = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+
+const hero2 = new Hero('Destroyer666', 'images/heroes/medieval-warrior', 1200, 150, 5, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+
+let hero;
+// console.log(chosenHero)
+
+if (Number(chosenHero) === 2) {
+  hero = hero2;
+  console.log(hero)
+} else {
+  hero = hero1;
+  console.log(hero)
+}
 
 // создаём врага
 const enemy = new Enemy('Skeleton', 'images/enemies/skeleton', 600, 150, 4, getRandomInt(40, 50), getRandomInt(13, 20), 8, getRandomInt(1, 6));
@@ -605,5 +621,5 @@ window.onload = () => {
   enemyAttackSkill.addSkillToInteface(); // добавляем скилл врагу
   enemyPowerAttackSkill.addSkillToInteface();
 
-  // enemy.skills[0].useSkill();
+  // fieldHTML.style.backgroundImage = `url(images/backgrounds/battle/test.jpg)`;
 };

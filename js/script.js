@@ -599,18 +599,20 @@ class SkillEnemy {
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
 // создаём героя
-const chosenHero = prompt('Введите номер героя которого хотите выбрать: 1. Воин 2. Самурай', 1);
+const chosenHero = prompt('Введите номер героя которого хотите выбрать: 1. Самурай 2. Воин 3. Рыцарь', 1);
 // const chosenHero = 1;
 let hero;
 
-if (Number(chosenHero) === 2) {
-  hero = new Hero('Destroyer666', 'images/heroes/martial-hero', 1600, 200, 4, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
-} else {
-  hero = new Hero('Destroyer666', 'images/heroes/medieval-warrior', 1200, 150, 5, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+if (Number(chosenHero) === 1) {
+  hero = new Hero('Самурай', 'images/heroes/martial-hero', 1600, 200, 4, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+} else if (Number(chosenHero) === 2) {
+  hero = new Hero('Воин', 'images/heroes/medieval-warrior', 1200, 150, 5, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+} else if (Number(chosenHero) === 3) {
+  hero = new Hero('Рыцарь', 'images/heroes/hero-knight', 1980, 180, 4.2, 11, 4, 7, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
 }
 
 // создаём врага
-const chosenEnemy = getRandomInt(1, 4);
+const chosenEnemy = getRandomInt(1, 1);
 let enemy;
 
 switch (chosenEnemy) {

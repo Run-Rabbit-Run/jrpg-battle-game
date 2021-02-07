@@ -599,7 +599,7 @@ class SkillEnemy {
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
 // создаём героя
-const chosenHero = prompt('Введите номер героя которого хотите выбрать: 1. Самурай 2. Воин 3. Рыцарь 4. Охотница', 1);
+const chosenHero = prompt('Введите номер героя которого хотите выбрать: \n1) Самурай \n2) Воин \n3) Рыцарь \n4) Охотница', 1);
 // const chosenHero = 1;
 let hero;
 

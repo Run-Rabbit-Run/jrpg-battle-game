@@ -32,7 +32,7 @@
 
 .hero-wrapper {
   position: absolute;
-  bottom: -17vw;
+  bottom: -16vw;
   left: -10vw;
   z-index: 1;
 }
@@ -170,8 +170,11 @@
 .attack-skills__icon {
   width: 2.22vw;
   height: 2.22vw;
-  cursor: pointer;
   margin-right: 0.7vw;
+
+  border-radius: 0.5vw;
+
+  cursor: pointer;
 }
 
 .attack-skills__icon:nth-last-child(1) {

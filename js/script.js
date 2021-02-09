@@ -49,7 +49,7 @@ class BackgroundBattle {
 
 // Cоздаём героя
 class Hero {
-  constructor(name, imgPath, imgHeight, scaleMultiplier, idleSprites, runSprites, deathSprites, takeHitSprites, attack1Sprites, health = 100, baseAttack = 10, armor = 1) {
+  constructor(name, imgPath, idleSprites, runSprites, deathSprites, takeHitSprites, attack1Sprites, health = 100, baseAttack = 10, armor = 1, imgHeight = 200, scaleMultiplier = 4) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
@@ -244,7 +244,7 @@ class Hero {
 
 // Создаём класс врага
 class Enemy {
-  constructor(name, imgPath, imgHeight, scaleMultiplier, idleSprites, runSprites, deathSprites, takeHitSprites, attack1Sprites, health, baseAttack, armor = 1) {
+  constructor(name, imgPath, idleSprites, runSprites, deathSprites, takeHitSprites, attack1Sprites, health, baseAttack, armor = 1, imgHeight = 150, scaleMultiplier = 4) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
@@ -612,13 +612,13 @@ const chosenHero = prompt('Введите номер героя которого
 let hero;
 
 if (Number(chosenHero) === 1) {
-  hero = new Hero('Самурай', 'images/heroes/martial-hero', 200, 4, 8, 8, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Самурай', 'images/heroes/martial-hero', 8, 8, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
 } else if (Number(chosenHero) === 2) {
-  hero = new Hero('Воин', 'images/heroes/medieval-warrior', 150, 5, 8, 8, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Воин', 'images/heroes/medieval-warrior', 8, 8, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
 } else if (Number(chosenHero) === 3) {
-  hero = new Hero('Рыцарь', 'images/heroes/hero-knight', 180, 4.2, 11, 8, 11, 4, 7, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Рыцарь', 'images/heroes/hero-knight', 11, 8, 11, 4, 7, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
 } else {
-  hero = new Hero('Охотница', 'images/heroes/huntress', 150, 5, 8, 8, 8, 3, 5, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Охотница', 'images/heroes/huntress', 8, 8, 8, 3, 5, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
 }
 
 // создаём врага
@@ -627,16 +627,16 @@ let enemy;
 
 switch (chosenEnemy) {
   case 1:
-    enemy = new Enemy('Скелет', 'images/enemies/skeleton', 150, 4, 4, 4, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Скелет', 'images/enemies/skeleton', 4, 4, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 2:
-    enemy = new Enemy('Гоблин', 'images/enemies/goblin', 150, 4, 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Гоблин', 'images/enemies/goblin', 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 3:
-    enemy = new Enemy('Гриб', 'images/enemies/mushroom', 150, 4, 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Гриб', 'images/enemies/mushroom', 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 4:
-    enemy = new Enemy('Глаз', 'images/enemies/bat', 150, 4, 8, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Глаз', 'images/enemies/bat', 8, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
 }
 

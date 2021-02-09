@@ -17,6 +17,7 @@
   margin: auto;
   background-repeat: no-repeat;
   background-position-y: bottom;
+  background-position-x: center;
   background-size: cover;
 
   overflow: hidden;
@@ -31,7 +32,7 @@
 
 .hero-wrapper {
   position: absolute;
-  top: 13.8vw;
+  bottom: -17vw;
   left: -10vw;
   z-index: 1;
 }
@@ -65,7 +66,7 @@
 
 .enemy-wrapper {
   position: absolute;
-  top: 19.79vw;
+  bottom: -9vw;
   right: -5.2vw;
   z-index: 1;
 }
@@ -115,6 +116,8 @@
   
   background-color: rgba(121, 194, 216, 0.795);
   border-bottom: 0.2vw solid rgb(103, 255, 1);
+
+  z-index: 2;
 }
 
 .stats--border-right {

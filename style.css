@@ -5,7 +5,7 @@
 }
 
 .body {
-  font-size: 20px;
+  font-size: 1.35vw;
   font-weight: 600;
 }
 
@@ -38,18 +38,18 @@
 
 .hero-damage {
   position: absolute;
-  left: 230px;
-  top: 420px;
-  min-width: 50px;
-  height: 30px;
-  padding: 5px;
+  left: 15.98vw;
+  top: 29.17vw;
+  min-width: 3.47vw;
+  height: 2.08vw;
+  padding: 0.35vw;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  border: 3px solid black;
-  border-radius: 10px;
+  border: 0.2vw solid black;
+  border-radius: 0.7vw;
 
   background-color: red;
 
@@ -72,18 +72,18 @@
 
 .enemy-damage {
   position: absolute;
-  right: 230px;
-  top: 420px;
-  min-width: 50px;
-  height: 30px;
-  padding: 5px;
+  right: 15.98vw;
+  top: 29.17vw;
+  min-width: 3.47vw;
+  height: 2.08vw;
+  padding: 0.35vw;
 
   display: flex;
   justify-content: center;
   align-items: center;
   
-  border: 3px solid black;
-  border-radius: 10px;
+  border: 0.2vw solid black;
+  border-radius: 0.7vw;
   
   background-color: red;
 
@@ -97,7 +97,7 @@
   }
 
   100% {
-    transform: translateY(-50px);
+    transform: translateY(-3vw);
     opacity: 0;
   }
 }
@@ -110,21 +110,21 @@
 }
 
 .stats {
-  width: 240px;
-  padding: 10px 10px 15px 10px;
+  width: 16.7vw;
+  padding: 0.8vw 0.8vw 1vw 0.8vw;
   
   background-color: rgba(121, 194, 216, 0.795);
-  border-bottom: 3px solid rgb(103, 255, 1);
+  border-bottom: 0.2vw solid rgb(103, 255, 1);
 }
 
 .stats--border-right {
-  border-bottom-right-radius: 15px;
-  border-right: 3px solid rgb(103, 255, 1);
+  border-bottom-right-radius: 1vw;
+  border-right: 0.2vw solid rgb(103, 255, 1);
 }
 
 .stats--border-left {
-  border-bottom-left-radius: 15px;
-  border-left: 3px solid rgb(103, 255, 1);
+  border-bottom-left-radius: 1vw;
+  border-left: 0.2vw solid rgb(103, 255, 1);
 }
 
 .stats__list {
@@ -132,11 +132,11 @@
 }
 
 .stats__item {
-  margin-bottom: 5px;  
+  margin-bottom: 0.35vw;  
 }
 
 .stats__value {
-  text-shadow: 0 0 1px black;
+  text-shadow: 0 0 0.07vw black;
 }
 
 .stats__value--red {
@@ -152,11 +152,11 @@
 }
 
 .attack-skills {
-  margin-top: 10px;
+  margin-top: 0.7vw;
 }
 
 .attack-skills__descriptions {
-  font-size: 14px;
+  font-size: 0.97vw;
   font-weight: 400;
 }
 
@@ -165,8 +165,10 @@
 }
 
 .attack-skills__icon {
+  width: 2.22vw;
+  height: 2.22vw;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 0.7vw;
 }
 
 .attack-skills__icon:nth-last-child(1) {
@@ -175,7 +177,7 @@
 
 .attack-skills__damage {
   font-weight: 600;
-  text-shadow: 0 0 1px black;
+  text-shadow: 0 0 0.07vw black;
 }
 
 .attack-skills__damage-physical {
@@ -191,7 +193,7 @@
 }
 
 .attack-skills__name {
-  font-size: 16px;
+  font-size: 1.11vw;
   font-weight: 600;
   color: rgb(139, 46, 58);
 }

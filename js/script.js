@@ -215,7 +215,7 @@ class Hero {
   }
 
   animateHitBar() {
-    heroHitBarHTML.style.animation = 'hit 2.5s';
+    heroHitBarHTML.style.animation = 'hit 3s';
     setTimeout(() => {
       heroHitBarHTML.style.animation = 'none';
     }, 2500);
@@ -244,24 +244,19 @@ class Hero {
 
 // Создаём класс врага
 class Enemy {
-  constructor(name, imgPath, imgWidth, imgHeight, scaleMultiplier, idleSprites, runSprites, deathSprites, takeHitSprites, attack1Sprites, health, baseAttack, armor = 1) {
+  constructor(name, imgPath, imgHeight, scaleMultiplier, idleSprites, runSprites, deathSprites, takeHitSprites, attack1Sprites, health, baseAttack, armor = 1) {
     this.name = name;
     this.attack = baseAttack;
     this.health = health;
     this.armor = armor;
     this.imgPath = imgPath;
-    this.imgWidth = imgWidth * scaleMultiplier;
     this.imgHeight = (imgHeight * scaleMultiplier) / (1440 / 100);
-    this.numberOfSprites = imgWidth / imgHeight;
-    this.attack1Sprites = attack1Sprites;
     this.animationTime = 800;
     this.idleSprites = idleSprites;
     this.runSprites = runSprites;
     this.deathSprites = deathSprites;
     this.takeHitSprites = takeHitSprites;
-    this.animationTick = imgHeight * scaleMultiplier;
-    this.animationInterval = 800 / (imgWidth / imgHeight);
-    this.scaleMultiplier = scaleMultiplier;
+    this.attack1Sprites = attack1Sprites;
     this.skills = [];
   }
 
@@ -424,7 +419,7 @@ class Enemy {
   }
 
   animateHitBar() {
-    enemyHitBarHTML.style.animation = 'hit 2.5s';
+    enemyHitBarHTML.style.animation = 'hit 3s';
     setTimeout(() => {
       enemyHitBarHTML.style.animation = 'none';
     }, 2500);
@@ -627,21 +622,21 @@ if (Number(chosenHero) === 1) {
 }
 
 // создаём врага
-const chosenEnemy = getRandomInt(1, 1);
+const chosenEnemy = getRandomInt(1, 4);
 let enemy;
 
 switch (chosenEnemy) {
   case 1:
-    enemy = new Enemy('Скелет', 'images/enemies/skeleton', 600, 150, 4, 4, 4, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Скелет', 'images/enemies/skeleton', 150, 4, 4, 4, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 2:
-    enemy = new Enemy('Гоблин', 'images/enemies/goblin', 600, 150, 4, 8, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Гоблин', 'images/enemies/goblin', 150, 4, 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 3:
-    enemy = new Enemy('Гриб', 'images/enemies/mushroom', 600, 150, 4, 8, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Гриб', 'images/enemies/mushroom', 150, 4, 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 4:
-    enemy = new Enemy('Глаз', 'images/enemies/bat', 1200, 150, 4, 8, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Глаз', 'images/enemies/bat', 150, 4, 8, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
 }
 

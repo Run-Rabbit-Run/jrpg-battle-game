@@ -7,6 +7,7 @@
 .body {
   font-size: 1.35vw;
   font-weight: 600;
+  color: antiquewhite;
 }
 
 .field {
@@ -40,7 +41,7 @@
 .hero-damage {
   position: absolute;
   left: 15.98vw;
-  top: 29.17vw;
+  bottom: 42vh;
   min-width: 3.47vw;
   height: 2.08vw;
   padding: 0.35vw;
@@ -53,8 +54,11 @@
   border-radius: 0.7vw;
 
   background-color: red;
+  color: rgb(0, 0, 0);
 
   opacity: 0;
+
+  z-index: 2;
 }
 
 .enemy {
@@ -74,7 +78,7 @@
 .enemy-damage {
   position: absolute;
   right: 15.98vw;
-  top: 29.17vw;
+  bottom: 42vh;
   min-width: 3.47vw;
   height: 2.08vw;
   padding: 0.35vw;
@@ -87,8 +91,11 @@
   border-radius: 0.7vw;
   
   background-color: red;
+  color: rgb(0, 0, 0);
 
   opacity: 0;
+
+  z-index: 2;
 }
 
 @keyframes hit {
@@ -98,7 +105,7 @@
   }
 
   100% {
-    transform: translateY(-3vw);
+    transform: translateY(-5vh);
     opacity: 0;
   }
 }
@@ -114,20 +121,20 @@
   width: 16.7vw;
   padding: 0.8vw 0.8vw 1vw 0.8vw;
   
-  background-color: rgba(121, 194, 216, 0.795);
-  border-bottom: 0.2vw solid rgb(103, 255, 1);
+  background-color: rgba(12, 80, 100, 0.795);
+  border-bottom: 0.2vw solid rgb(255, 137, 27);
 
-  z-index: 2;
+  z-index: 3;
 }
 
 .stats--border-right {
   border-bottom-right-radius: 1vw;
-  border-right: 0.2vw solid rgb(103, 255, 1);
+  border-right: 0.2vw solid rgb(255, 137, 27);
 }
 
 .stats--border-left {
   border-bottom-left-radius: 1vw;
-  border-left: 0.2vw solid rgb(103, 255, 1);
+  border-left: 0.2vw solid rgb(255, 137, 27);
 }
 
 .stats__list {
@@ -139,7 +146,7 @@
 }
 
 .stats__value {
-  text-shadow: 0 0 0.07vw black;
+  text-shadow: 0 0 0.05vw rgb(255, 255, 255);
 }
 
 .stats__value--red {
@@ -183,7 +190,7 @@
 
 .attack-skills__damage {
   font-weight: 600;
-  text-shadow: 0 0 0.07vw black;
+  text-shadow: 0 0 0.05vw rgb(255, 255, 255);
 }
 
 .attack-skills__damage-physical {
@@ -201,6 +208,6 @@
 .attack-skills__name {
   font-size: 1.11vw;
   font-weight: 600;
-  color: rgb(139, 46, 58);
+  color: rgb(253, 215, 0);
 }
 

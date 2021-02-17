@@ -477,8 +477,9 @@ class SkillHero {
 
     damage = (damage < 0) ? 0 : damage;
 
-    enemy.health = (enemy.health - damage > 0) ? (enemy.health - damage) : 0;
-    enemyHpHTML.innerHTML = (enemy.health - damage > 0) ? (enemy.health - damage) : 0;
+    enemy.health = enemy.health - damage;
+    if (enemy.health < 0) { enemy.health = 0;}
+    enemyHpHTML.innerHTML = enemy.health;
     enemyHitBarHTML.innerHTML = `-${damage}`;
 
     battleLogHTML.insertAdjacentHTML('beforeend', `<p class="battle-log__item">Персонаж <span class="hero-name">${hero.name}</span> использует умение <span class="attack-skills__name">${this.name}</span>, и наносит <span class="attack-skills__damage-${this.type}">${damage}</span> урона персонажу <span class="enemy-name">${enemy.name}</span></p>`);
@@ -561,8 +562,9 @@ class SkillEnemy {
 
     damage = (damage < 0) ? 0 : damage;
 
-    hero.health = (hero.health - damage > 0) ? (hero.health - damage) : 0;
-    heroHpHTML.innerHTML = (hero.health - damage > 0) ? (hero.health - damage) : 0;
+    hero.health = hero.health - damage;
+    if (hero.health < 0) { hero.health = 0;}
+    heroHpHTML.innerHTML = hero.health;
     heroHitBarHTML.innerHTML = `-${damage}`;
 
     battleLogHTML.insertAdjacentHTML('beforeend', `<p class="battle-log__item">Персонаж <span class="enemy-name">${enemy.name}</span> использует умение <span class="attack-skills__name">${this.name}</span>, и наносит <span class="attack-skills__damage-${this.type}">${damage}</span> урона персонажу <span class="hero-name">${hero.name}</span></p>`);

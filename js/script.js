@@ -477,8 +477,8 @@ class SkillHero {
 
     damage = (damage < 0) ? 0 : damage;
 
-    enemy.health = enemy.health - damage;
-    enemyHpHTML.innerHTML = enemy.health;
+    enemy.health = (enemy.health - damage > 0) ? (enemy.health - damage) : 0;
+    enemyHpHTML.innerHTML = (enemy.health - damage > 0) ? (enemy.health - damage) : 0;
     enemyHitBarHTML.innerHTML = `-${damage}`;
 
     battleLogHTML.insertAdjacentHTML('beforeend', `<p class="battle-log__item">Персонаж <span class="hero-name">${hero.name}</span> использует умение <span class="attack-skills__name">${this.name}</span>, и наносит <span class="attack-skills__damage-${this.type}">${damage}</span> урона персонажу <span class="enemy-name">${enemy.name}</span></p>`);
@@ -561,8 +561,8 @@ class SkillEnemy {
 
     damage = (damage < 0) ? 0 : damage;
 
-    hero.health = hero.health - damage;
-    heroHpHTML.innerHTML = hero.health;
+    hero.health = (hero.health - damage > 0) ? (hero.health - damage) : 0;
+    heroHpHTML.innerHTML = (hero.health - damage > 0) ? (hero.health - damage) : 0;
     heroHitBarHTML.innerHTML = `-${damage}`;
 
     battleLogHTML.insertAdjacentHTML('beforeend', `<p class="battle-log__item">Персонаж <span class="enemy-name">${enemy.name}</span> использует умение <span class="attack-skills__name">${this.name}</span>, и наносит <span class="attack-skills__damage-${this.type}">${damage}</span> урона персонажу <span class="hero-name">${hero.name}</span></p>`);
@@ -624,8 +624,8 @@ class SkillEnemy {
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
 // создаём героя
-// const chosenHero = prompt('Введите номер героя которого хотите выбрать: \n1) Самурай \n2) Воин \n3) Рыцарь \n4) Охотница \n5) Вита', 1);
-const chosenHero = 5;
+const chosenHero = prompt('Введите номер героя которого хотите выбрать: \n1) Самурай \n2) Воин \n3) Рыцарь \n4) Охотница \n5) Вита', 1);
+// const chosenHero = 5;
 let hero;
 
 if (Number(chosenHero) === 1) {
@@ -637,7 +637,7 @@ if (Number(chosenHero) === 1) {
 } else if (Number(chosenHero) === 4) {
   hero = new Hero('Охотница', 'images/heroes/huntress', 8, 8, 8, 3, 5, getRandomInt(44, 54), getRandomInt(14, 21), getRandomInt(1, 6));
 } else {
-  hero = new Hero('Vita', 'images/heroes/vita', 6, 8, 9, 3, 9, 100, 1, 88);
+  hero = new Hero('Vita', 'images/heroes/vita', 6, 8, 9, 3, 9, 100, 1, 8);
 }
 
 // создаём врага
@@ -664,7 +664,7 @@ const attackSkill = new SkillHero('Sword Attack', 'physical', hero.attack, `Пр
 
 const powerAttackSkill = new SkillHero('Piercing Attack', 'piercing', hero.attack * 0.8, `Атака, игнорирующая броню противника. Наносит ${damageInHTML(Math.round(hero.attack * 0.8), 'piercing')} проникающего урона`, 'images/icons/hero-skill-icons/icon-power-attack.png', 2);
 
-const weakAttack = new SkillHero('Weak Attack', 'magic', hero.attack, `Вита лениво взмахивает руками и наносит ${damageInHTML(Math.round(hero.attack * 42), 'magic')} единицы магического урона`, 'images/icons/hero-skill-icons/icon-blue-magic.png', 1);
+const weakAttack = new SkillHero('Weak Attack', 'magic', hero.attack * 42, `Вита лениво взмахивает руками и наносит ${damageInHTML(Math.round(hero.attack * 42), 'magic')} единицы магического урона`, 'images/icons/hero-skill-icons/icon-blue-magic.png', 1);
 
 const ThePowerOfVita = new SkillHero('The Power Of Vita', 'magic', hero.attack * 999, `Могущественная атака истинного олдфага моментально аннигилирует противника, нанося ${damageInHTML(Math.round(hero.attack * 999), 'magic')} единиц магического урона`, 'images/icons/hero-skill-icons/icon-vita-power.jpg', 2);
 

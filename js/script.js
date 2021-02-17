@@ -11,6 +11,7 @@ const enemyHTML = document.getElementById('enemy');
 const enemyHpHTML = document.getElementById('enemy-hp');
 const enemyArmorHTML = document.getElementById('enemy-armor');
 const enemyHitBarHTML = document.getElementById('enemy-damage');
+const battleLogHTML = document.getElementById('battle-log');
 const attackSkillsIconsHTML = document.getElementById('skills-icons');
 const enemyAttackSkillsIconsHTML = document.getElementById('enemy-skills-icons');
 const attackSkillsDescriptionsHTML = document.getElementById('skills-description');
@@ -143,14 +144,14 @@ class Hero {
   }
 
   animateAttack1() {
+    heroHTML.style.backgroundPosition = `0vw`;
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Attack1.png)`;
-
+    
     let position = 0;
     const lastSpritePosition = (this.imgHeight * this.attack1Sprites) - this.imgHeight;
 
     const attack = setInterval(() => {
       heroHTML.style.backgroundPosition = `-${position}vw`;
-
       if (Math.round(position) < Math.round(lastSpritePosition)) {
         position += this.imgHeight;
       } else {
@@ -161,6 +162,7 @@ class Hero {
   }
 
   animateAttack2() {
+    heroHTML.style.backgroundPosition = `0vw`;
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Attack2.png)`;
 
     let position = 0;
@@ -179,6 +181,7 @@ class Hero {
   }
 
   animateAttack3() {
+    heroHTML.style.backgroundPosition = `0vw`;
     heroHTML.style.backgroundImage = `url(${this.imgPath}/Attack3.png)`;
 
     let position = 0;
@@ -467,11 +470,18 @@ class SkillHero {
       case 'piercing':
         damage = this.damage;
         break;
+      case 'magic':
+        damage = this.damage;
+        break;
     }
+
+    damage = (damage < 0) ? 0 : damage;
 
     enemy.health = enemy.health - damage;
     enemyHpHTML.innerHTML = enemy.health;
     enemyHitBarHTML.innerHTML = `-${damage}`;
+
+    battleLogHTML.insertAdjacentHTML('beforeend', `<p class="battle-log__item">Персонаж <span class="hero-name">${hero.name}</span> использует умение <span class="attack-skills__name">${this.name}</span>, и наносит <span class="attack-skills__damage-${this.type}">${damage}</span> урона персонажу <span class="enemy-name">${enemy.name}</span></p>`);
   }
 
   addSkillToInteface() {
@@ -480,7 +490,7 @@ class SkillHero {
 
     attackSkillsIconsHTML.insertAdjacentHTML('beforeend', `<img class="attack-skills__icon" id="${idIcon}" src="${this.iconPath}">`);
 
-    attackSkillsDescriptionsHTML.insertAdjacentHTML('beforeend', `<p class="attack-skills__description" id="${idDescription}"><span class="attack-skills__name">${this.name}.</span> ${this.description}</p>`);
+    attackSkillsDescriptionsHTML.insertAdjacentHTML('beforeend', `<p class="attack-skills__description" id="${idDescription}"><span class="attack-skills__name">${this.name}</span></br>${this.description}</p>`);
 
     const icon = document.getElementById(idIcon);
     const description = document.getElementById(idDescription);
@@ -544,11 +554,18 @@ class SkillEnemy {
       case 'piercing':
         damage = this.damage;
         break;
+      case 'magic':
+        damage = this.damage;
+        break;
     }
+
+    damage = (damage < 0) ? 0 : damage;
 
     hero.health = hero.health - damage;
     heroHpHTML.innerHTML = hero.health;
     heroHitBarHTML.innerHTML = `-${damage}`;
+
+    battleLogHTML.insertAdjacentHTML('beforeend', `<p class="battle-log__item">Персонаж <span class="enemy-name">${enemy.name}</span> использует умение <span class="attack-skills__name">${this.name}</span>, и наносит <span class="attack-skills__damage-${this.type}">${damage}</span> урона персонажу <span class="hero-name">${hero.name}</span></p>`);
   }
 
   addSkillToInteface() {
@@ -559,7 +576,7 @@ class SkillEnemy {
 
     enemyAttackSkillsIconsHTML.insertAdjacentHTML('beforeend', `<img class="attack-skills__icon" id="${idIcon}" src="${this.iconPath}">`);
 
-    enemyAttackSkillsDescriptionsHTML.insertAdjacentHTML('beforeend', `<p class="attack-skills__description" id="${idDescription}"><span class="attack-skills__name">${this.name}.</span> ${this.description}</p>`);
+    enemyAttackSkillsDescriptionsHTML.insertAdjacentHTML('beforeend', `<p class="attack-skills__description" id="${idDescription}"><span class="attack-skills__name">${this.name}</span></br>${this.description}</p>`);
 
     const icon = document.getElementById(idIcon);
     const description = document.getElementById(idDescription);
@@ -607,18 +624,20 @@ class SkillEnemy {
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
 
 // создаём героя
-const chosenHero = prompt('Введите номер героя которого хотите выбрать: \n1) Самурай \n2) Воин \n3) Рыцарь \n4) Охотница', 1);
-// const chosenHero = 1;
+// const chosenHero = prompt('Введите номер героя которого хотите выбрать: \n1) Самурай \n2) Воин \n3) Рыцарь \n4) Охотница \n5) Вита', 1);
+const chosenHero = 5;
 let hero;
 
 if (Number(chosenHero) === 1) {
-  hero = new Hero('Самурай', 'images/heroes/martial-hero', 8, 8, 6, 4, 6, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Самурай', 'images/heroes/martial-hero', 8, 8, 6, 4, 6, getRandomInt(44, 54), getRandomInt(14, 21), getRandomInt(1, 6));
 } else if (Number(chosenHero) === 2) {
-  hero = new Hero('Воин', 'images/heroes/medieval-warrior', 8, 8, 6, 4, 4, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Воин', 'images/heroes/medieval-warrior', 8, 8, 6, 4, 4, getRandomInt(44, 54), getRandomInt(14, 21), getRandomInt(1, 6));
 } else if (Number(chosenHero) === 3) {
-  hero = new Hero('Рыцарь', 'images/heroes/hero-knight', 11, 8, 11, 4, 7, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Рыцарь', 'images/heroes/hero-knight', 11, 8, 11, 4, 7, getRandomInt(44, 54), getRandomInt(14, 21), getRandomInt(1, 6));
+} else if (Number(chosenHero) === 4) {
+  hero = new Hero('Охотница', 'images/heroes/huntress', 8, 8, 8, 3, 5, getRandomInt(44, 54), getRandomInt(14, 21), getRandomInt(1, 6));
 } else {
-  hero = new Hero('Охотница', 'images/heroes/huntress', 8, 8, 8, 3, 5, getRandomInt(43, 53), getRandomInt(14, 21), getRandomInt(1, 6));
+  hero = new Hero('Vita', 'images/heroes/vita', 6, 8, 9, 3, 9, 100, 1, 88);
 }
 
 // создаём врага
@@ -627,28 +646,44 @@ let enemy;
 
 switch (chosenEnemy) {
   case 1:
-    enemy = new Enemy('Скелет', 'images/enemies/skeleton', 4, 4, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Скелет', 'images/enemies/skeleton', 4, 4, 4, 4, 8, getRandomInt(43, 53), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 2:
-    enemy = new Enemy('Гоблин', 'images/enemies/goblin', 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Гоблин', 'images/enemies/goblin', 4, 8, 4, 4, 8, getRandomInt(43, 53), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 3:
-    enemy = new Enemy('Гриб', 'images/enemies/mushroom', 4, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Гриб', 'images/enemies/mushroom', 4, 8, 4, 4, 8, getRandomInt(43, 53), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
   case 4:
-    enemy = new Enemy('Глаз', 'images/enemies/bat', 8, 8, 4, 4, 8, getRandomInt(40, 50), getRandomInt(13, 23), getRandomInt(1, 6));
+    enemy = new Enemy('Глаз', 'images/enemies/bat', 8, 8, 4, 4, 8, getRandomInt(43, 53), getRandomInt(13, 23), getRandomInt(1, 6));
     break;
 }
 
-// создаём обычную атаку
+// умения героя
 const attackSkill = new SkillHero('Sword Attack', 'physical', hero.attack, `Простая атака мечом. Наносит ${damageInHTML(hero.attack, 'physical')} физического урона`, 'images/icons/hero-skill-icons/icon-attack.png', 1);
 
 const powerAttackSkill = new SkillHero('Piercing Attack', 'piercing', hero.attack * 0.8, `Атака, игнорирующая броню противника. Наносит ${damageInHTML(Math.round(hero.attack * 0.8), 'piercing')} проникающего урона`, 'images/icons/hero-skill-icons/icon-power-attack.png', 2);
+
+const weakAttack = new SkillHero('Weak Attack', 'magic', hero.attack, `Вита лениво взмахивает руками и наносит ${damageInHTML(Math.round(hero.attack * 42), 'magic')} единицы магического урона`, 'images/icons/hero-skill-icons/icon-blue-magic.png', 1);
+
+const ThePowerOfVita = new SkillHero('The Power Of Vita', 'magic', hero.attack * 999, `Могущественная атака истинного олдфага моментально аннигилирует противника, нанося ${damageInHTML(Math.round(hero.attack * 999), 'magic')} единиц магического урона`, 'images/icons/hero-skill-icons/icon-vita-power.jpg', 2);
 
 // создаём атаку противника
 const enemyAttackSkill = new SkillEnemy('Basic Attack', 'physical', enemy.attack, `Атака мечом. Наносит ${damageInHTML(enemy.attack, 'physical')} физического урона`, 'images/icons/enemy-skill-icons/icon-attack.png', 1);
 
 const enemyPowerAttackSkill = new SkillEnemy('Deadly Attack', 'piercing', enemy.attack * 0.8, `Атака, игнорирующая броню противника. Наносит ${damageInHTML(Math.round(enemy.attack * 0.8), 'piercing')} проникающего урона`, 'images/icons/enemy-skill-icons/icon-power-attack.png', 2);
+
+
+// Устанавливаем скролл у battle log в нижнее положение при каждом сообщении
+const observerConfig = {
+  childList: true
+};
+const observerCallback = () => {
+  battleLogHTML.scrollTop = battleLogHTML.scrollHeight;
+};
+const observer = new MutationObserver(observerCallback);
+
+observer.observe(battleLogHTML, observerConfig);
 
 // -------------------- ВЫПОЛНЕНИЕ КОДА --------------------
 window.onload = () => {
@@ -659,11 +694,14 @@ window.onload = () => {
   enemy.drawEnemy(); // отрисовываем врага и задаём ему размер
   enemy.animateIdle(); // включаем анимацию при покое для врага
 
-  attackSkill.addSkillToInteface(); // добавляем скилл нашему герою
-  powerAttackSkill.addSkillToInteface(); // добавляем второй скилл
+  if (hero.name === 'Vita') {
+    weakAttack.addSkillToInteface();
+    ThePowerOfVita.addSkillToInteface();
+  } else {
+    attackSkill.addSkillToInteface();
+    powerAttackSkill.addSkillToInteface();
+  }
 
   enemyAttackSkill.addSkillToInteface(); // добавляем скилл врагу
   enemyPowerAttackSkill.addSkillToInteface();
-
-  // fieldHTML.style.backgroundImage = `url(images/backgrounds/battle/test.jpg)`;
 };

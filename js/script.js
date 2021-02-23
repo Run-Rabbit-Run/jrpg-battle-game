@@ -14,6 +14,8 @@ const enemyHitBarHTML = document.getElementById('enemy-damage');
 const battleLogHTML = document.getElementById('battle-log');
 const attackSkillsIconsHTML = document.getElementById('skills-icons');
 const enemyAttackSkillsIconsHTML = document.getElementById('enemy-skills-icons');
+const heroPassiveSkillsIconsHTML = document.getElementById('passive-skills-hero');
+const enemyPassiveSkillsIconsHTML = document.getElementById('passive-skills-enemy');
 const attackSkillsDescriptionsHTML = document.getElementById('skills-description');
 const enemyAttackSkillsDescriptionsHTML = document.getElementById('enemy-skills-description');
 
@@ -504,7 +506,7 @@ class SkillHero {
       description.style.display = 'none';
     };
 
-    icon.onclick = () => {
+    icon.addEventListener('click', () => {
       hero.endTurn(); // блокируем интерфейс
       hero.stopAnimationIdle(); // стоп анимации покоя
       hero.animateRun(); // запуск анимации бега
@@ -529,9 +531,9 @@ class SkillHero {
         setTimeout(() => alert(`Поздравляем! \nМогущественный ${enemy.name} повержен! \nОбновите страницу, чтобы совершить ещё один подвиг!`), (enemy.animationTime * 3.5));
       } else {
         setTimeout(enemy.animateHit.bind(enemy), (hero.animationTime * 1.5)); // анимация получения урона
-        setTimeout(enemy.startTurn.bind(enemy), (hero.animationTime * 3));
+        setTimeout(enemy.startTurn.bind(enemy), (hero.animationTime * 3)); // ход переходит врагу
       }
-    };
+    });
   }
 }
 
@@ -546,7 +548,7 @@ class SkillEnemy {
   }
 
   dealDamage() {
-    let damage;
+    let damage = null;
 
     switch (this.type) {
       case 'physical':
@@ -621,6 +623,40 @@ class SkillEnemy {
   }
 }
 
+// Класс пассивных умений 
+class PassiveSkills {
+  constructor(name, passiveSkillFunction, passiveSkillDescription, iconName) {
+    this.name = name;
+    this.description = passiveSkillDescription;
+    this.passiveSkill = passiveSkillFunction;
+    this.iconPath = `images/icons/hero-skill-icons/${iconName}`;
+  }
+
+  addTo(person) { // person hero or enemy
+    const idIcon = `${this.name.split(' ').join('')}-${person}-icon`;
+    const idDescription = `${this.name.split(' ').join('')}-${person}-description`;
+
+    const html = person === 'enemy' ? enemyPassiveSkillsIconsHTML : heroPassiveSkillsIconsHTML;
+
+    html.insertAdjacentHTML('beforeend', `<img class="passive-skill__icon" id="${idIcon}" src="${this.iconPath}">`);
+
+    html.insertAdjacentHTML('beforeend', `<p class="passive-skill__description" id="${idDescription}"><span class="passive-skill__name">${this.name}</span></br>${this.description}</p>`);
+
+    const icon = document.getElementById(idIcon);
+    const description = document.getElementById(idDescription);
+
+    icon.onmouseover = () => {
+      description.style.opacity = '1';
+    };
+
+    icon.onmouseout = () => {
+      description.style.opacity = '0';
+    };
+
+    this.passiveSkill();
+  }
+}
+
 // -------------------- СОЗДАЁМ ОБЪЕКТЫ --------------------
 // создаём объект местности, в которой всё происходит
 const background = new BackgroundBattle(battleLocation[getRandomInt(0, (battleLocation.length - 1))], battleTimes[getRandomInt(0, (battleTimes.length - 1))], getRandomInt(1, 3));
@@ -639,7 +675,7 @@ if (Number(chosenHero) === 1) {
 } else if (Number(chosenHero) === 4) {
   hero = new Hero('Охотница', 'images/heroes/huntress', 8, 8, 8, 3, 5, getRandomInt(44, 54), getRandomInt(14, 21), getRandomInt(1, 6));
 } else {
-  hero = new Hero('Vita', 'images/heroes/vita', 6, 8, 9, 3, 9, 100, 1, 8);
+  hero = new Hero('Вита', 'images/heroes/vita', 6, 8, 9, 3, 9, 100, 1, 8);
 }
 
 // создаём врага
@@ -668,13 +704,31 @@ const powerAttackSkill = new SkillHero('Piercing Attack', 'piercing', hero.attac
 
 const weakAttack = new SkillHero('Weak Attack', 'magic', hero.attack * 42, `Вита лениво взмахивает руками и наносит ${damageInHTML(Math.round(hero.attack * 42), 'magic')} единицы магического урона`, 'images/icons/hero-skill-icons/icon-blue-magic.png', 1);
 
-const ThePowerOfVita = new SkillHero('The Power Of Vita', 'magic', hero.attack * 999, `Могущественная атака истинного олдфага моментально аннигилирует противника, нанося ${damageInHTML(Math.round(hero.attack * 999), 'magic')} единиц магического урона`, 'images/icons/hero-skill-icons/icon-vita-power.jpg', 2);
+const ThePowerOfVita = new SkillHero('The Power Of Vita', 'magic', hero.attack * 999, `Могущественная атака истинного олдфага моментально аннигилирует противника, нанося ${damageInHTML(Math.round(hero.attack * 999), 'magic')} единиц магического урона`, 'images/icons/hero-skill-icons/icon-red-magic.png', 2);
 
 // создаём атаку противника
 const enemyAttackSkill = new SkillEnemy('Basic Attack', 'physical', enemy.attack, `Атака мечом. Наносит ${damageInHTML(enemy.attack, 'physical')} физического урона`, 'images/icons/enemy-skill-icons/icon-attack.png', 1);
 
 const enemyPowerAttackSkill = new SkillEnemy('Deadly Attack', 'piercing', enemy.attack * 0.8, `Атака, игнорирующая броню противника. Наносит ${damageInHTML(Math.round(enemy.attack * 0.8), 'piercing')} проникающего урона`, 'images/icons/enemy-skill-icons/icon-power-attack.png', 2);
 
+// создём пассивные умения
+const armorBreaker = () => {
+  const skills = attackSkillsIconsHTML.querySelectorAll('.attack-skills__icon');
+  skills.forEach((skill) => {
+    skill.addEventListener('click', () => {
+      enemy.armor = enemy.armor - 1;
+      if (enemy.armor < 0) { enemy.armor = 0;}
+      enemyArmorHTML.textContent = enemy.armor;
+      battleLogHTML.insertAdjacentHTML('beforeend', `<p class="battle-log__item"><span class="enemy-name">${enemy.name}</span> теряет <span class="stats__value--silver">1</span> единицу брони</p>`);
+    });
+  });
+};
+const passiveArmorBreaker = new PassiveSkills('Armor Breaker', armorBreaker, 'Каждая атака героя разрушает вражескую броню.', 'icon-weapon-breaker.png');
+
+const inspiration = () => {
+  console.log('Трепещите смертные! Её величество Виталина вступила в битву!');
+};
+const inspirationWave = new PassiveSkills('Inspiration Wave', inspiration, `Ежедневные тренировки, усердное изучение древних фолиантов и вера в себя помогли Вите стать одной из самых могущественных волшебниц Астрала. Она не нуждается в бонусах, вместо этого Вита воодушевляет окружающих.</br>Союзники получают +100 к морали.`, 'icon-vita-power.jpg');
 
 // Устанавливаем скролл у battle log в нижнее положение при каждом сообщении
 const observerConfig = {
@@ -696,12 +750,14 @@ window.onload = () => {
   enemy.drawEnemy(); // отрисовываем врага и задаём ему размер
   enemy.animateIdle(); // включаем анимацию при покое для врага
 
-  if (hero.name === 'Vita') {
+  if (hero.name === 'Вита') {
     weakAttack.addSkillToInteface();
     ThePowerOfVita.addSkillToInteface();
+    inspirationWave.addTo('hero');
   } else {
     attackSkill.addSkillToInteface();
     powerAttackSkill.addSkillToInteface();
+    passiveArmorBreaker.addTo('hero'); // добавляем пассивное умение герою
   }
 
   enemyAttackSkill.addSkillToInteface(); // добавляем скилл врагу

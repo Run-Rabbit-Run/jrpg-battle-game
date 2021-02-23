@@ -117,6 +117,8 @@
 }
 
 .stats {
+  position: relative;
+
   width: 16.7vw;
   padding: 0.8vw 0.8vw 0.7vw 0.8vw;
 
@@ -185,7 +187,7 @@
   margin-right: 0.7vw;
 
   border-radius: 0.5vw;
-  border: 2px solid black;
+  border: 0.14vw solid black;
 
   cursor: pointer;
 }
@@ -246,6 +248,63 @@
 
 .battle-log__item {
   margin: 0.4vw 0.4vw 0.4vw 0.4vw;
+}
+
+.passive-skills {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  z-index: 3;
+}
+
+.passive-skill-hero {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.4vw);
+  width: 16.7vw;
+
+  opacity: 0.85;
+}
+.passive-skill-enemy {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.4vw);
+  width: 16.7vw;
+
+  opacity: 0.85;
+  z-index: 3;
+}
+
+.passive-skill__description {
+  padding: 0.4vw;
+
+  font-size: 0.9vw;
+
+  background-color: rgba(12, 80, 100, 0.795);
+  border-radius: 1vw;
+  border: 0.2vw solid rgb(255, 137, 27);
+
+  opacity: 0;
+}
+
+.passive-skill__icon {
+  width: 2.22vw;
+  height: 2.22vw;
+  margin-right: 0.4vw;
+
+  border-radius: 0.5vw;
+  border: 0.14vw solid rgb(255, 255, 255);
+  
+  cursor: pointer;
+}
+
+.passive-skill__icon:nth-last-child(1) {
+  margin-right: 0;
+}
+
+.passive-skill__name {
+  color: rgb(0, 255, 21);
 }
 
 ::-webkit-scrollbar {

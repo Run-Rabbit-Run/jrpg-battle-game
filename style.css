@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.pixelart {
+  image-rendering: pixelated;
+}
+
 .body {
   font-size: 1.35vw;
   font-weight: 600;
@@ -286,6 +290,8 @@
   border: 0.2vw solid rgb(255, 137, 27);
 
   opacity: 0;
+
+  cursor: default;
 }
 
 .passive-skill__icon {
